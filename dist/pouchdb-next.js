@@ -9516,9 +9516,7 @@ function replicate(src, target, opts, returnValue, result) {
     currentBatch.changes.forEach(function (change) {
       // Couchbase Sync Gateway emits these, but we can ignore them
       /* istanbul ignore if */
-      if (change.id === "_user/") {
-        return;
-      }
+      if (change.id.indexOf("_user/") === 0 || change.id.indexOf("_role/") === 0) { return; }
       diff[change.id] = change.changes.map(function (x) {
         return x.rev;
       });
